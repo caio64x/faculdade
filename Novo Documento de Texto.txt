@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <new>
+#include <iostream>
+#include <string>
+#include <time.h>
+using namespace std;
+
+//limpa tela
+void limpaTela(){
+    system("CLS");   }
+
+void jogarSozinho(){
+
+string palavras[3] = {"abacaxi", "manga", "Morango"};
+
+//indice gerado
+    int indiceAleatorio = rand() %3;
+        cout << indiceAleatorio;
+}
+
+void menuInicial(){
+    // opcao do usuario
+int opcao = 0;
+//menu
+while (opcao < 1 || opcao > 3){
+
+cout << "Bem vindo ao jogo";
+    cout << "\n1 - Jogar";
+        cout << "\n2 - Sobre";
+            cout << "\n3 - Sair";
+                cout << "\n Escolha uma op�ao e tecle ENTER:";
+cin >> opcao;
+
+//sistema de escolhas (sub menu)
+switch(opcao){
+case 1:
+            cout << "Jogo iniciado";
+    break;
+case 2:
+            cout << "Informacoes do jogo";
+    break;
+case 3:
+            cout << "Ate mais";
+    break;
+}}}
+
+int main(){
+
+
+srand((unsigned)time (NULL));
+
+menuInicial();
+
+}
