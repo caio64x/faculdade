@@ -9,7 +9,7 @@ using namespace std;
 //limpa tela
 void limpaTela(){
     system("CLS");   }
-
+//teste
 void jogarSozinho(){
 
 string palavras[3] = {"abacaxi", "manga", "Morango"};
