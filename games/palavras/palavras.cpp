@@ -10,6 +10,7 @@ using namespace std;
 void limpaTela(){ 
     system("CLS");   }
 
+//gerador de palavra aleatoria
 string rotornaPalavraAleatoria(){
 string palavras[3] = {"abacaxi", "manga", "Morango"};
 
@@ -35,7 +36,7 @@ while(cont < tamanhoDaPalavra){
         cout << "A palavra secreta eh: " << palavra <<"(tamanho:"<< tamanhoDaPalavra << ")";
             cout << "\nMascara:" << palavraComMascara;
 }
-
+//menu de
 void menuInicial(){
 // opcao do usuario
 int opcao = 0;
