@@ -53,8 +53,7 @@ int jogar(int numeroDeJogadores){
             }else
             {
                 cout << "\nDigite uma palavra\n";
-                cin >> palavra;
-            }
+                cin >> palavra;       }
  //tamanho da palavra
 int tamanhoDaPalavra = palavra.size();
    // retorno da palavra e o tamanho dela para a funcao etornaPalavraComMascara
@@ -89,8 +88,7 @@ for ( cont = 0; cont < tentativas; cont++){
           //faço a letra aparecer na palavra
            palavraComMascara[cont] = palavra[cont]; 
            mensagem = "voce acertou uma letra\n";
-           acertouletra = true;
-            }}
+           acertouletra = true;       }}
       //incrementa tentativas
 if (acertouletra == false) {
             mensagem = "voce errou uma letra\n";}
@@ -118,13 +116,13 @@ void menuInicial(){
 //declaracao de variaveis
 int opcao = 0; //opcao do usuario
 //menu
-while (opcao < 1 || opcao > 3){
+while (opcao < 1 || opcao > 4){
 //opcoes                                      
 cout << "Bem vindo ao jogo";
     cout << "\n1 - Jogar sozinho";
         cout << "\n2 - jogar em dupla";
-            cout << "\n2 - Sobre"; //informacoes do jogo
-                cout << "\n3 - Sair";
+            cout << "\n3 - Sobre"; //informacoes do jogo
+                cout << "\n4 - Sair";
                     cout << "\n Escolha uma opcao e tecle ENTER: ";
     cin >> opcao;
 //sistema de escolhas (sub menu)
@@ -154,18 +152,17 @@ case 3:
                 cin >> opcao;
                 if (opcao == 1){
                     limpaTela();
-                    menuInicial();
-                }
+                    menuInicial();       }
     break;
 case 4:
+            limpaTela();
             cout << "Ate mais\n";
+
     break;}}  }
 
 int main(){
 setlocale(LC_ALL,"Brasil");
 _tsetlocale(LC_ALL, _T("portuguese"));
 limpaTela();
-
 srand((unsigned)time(NULL));
-
 menuInicial();}
