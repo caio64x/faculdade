@@ -7,6 +7,7 @@
 #include <time.h>
 #include <windows.h>
 #include <tchar.h>
+#define qt 30
 using namespace std;
 
 //funçao limpa tela
@@ -14,10 +15,11 @@ void limpaTela(){
     system("CLS");   }
 
 //funcao palavra aleatoria
-string rotornaPalavraAleatoria(){
-    string palavras[3] = {"abacaxi", "manga", "morango"};
+string retornaPalavraAleatoria(){
+    string palavras[qt] = {"abacaxi", "manga", "morango", "bailarina", "futebol", "estátua", "pintor", "frio", "bebê", "quimico", "escova", "lapis", "livro", "astronauta", "amor","odio", "cego", "cadeira", "sacola", "professor", "medico", "calculadora", "artista", "vitoria", "pescador", "internet", 
+"basquete", "semente", "policial", "amargo"};
 //indice gerado
- int indiceAleatorio = rand() %3;
+ int indiceAleatorio = rand() %qt;
 //retorna a palavra
         return palavras[indiceAleatorio]; }
 
@@ -36,17 +38,24 @@ void exibeStatus(string palavraComMascara, int tamanhoDaPalavra, int tentativasR
   cout << mensagem;
     cout << "Palavra: " << palavraComMascara <<"(tamanho:"<< tamanhoDaPalavra << ")";
          cout << "\nTentativas restantes:" << tentativasRestantes << "\n\n";
-int cont; //exibe as letras arriscadas
-    cout << "\n letras arriscadas: "; 
-    for ( cont = 0; cont < letrasJaArriscadas.size(); cont++) {
-         cout << letrasJaArriscadas[cont] << ", ";   }   }
+        int cont; //exibe as letras arriscadas
+            cout << "\n letras arriscadas: "; 
+            for ( cont = 0; cont < letrasJaArriscadas.size(); cont++) {
+                cout << letrasJaArriscadas[cont] << ", ";   }   }
 
 //funçao opcao jogar sozinho
-int jogarSozinho(){
-    setlocale(LC_ALL,"PORTUGUESE");
- //palavra a ser advinhada
- string palavra = rotornaPalavraAleatoria();
-//tamanho da palavra
+int jogar(int numeroDeJogadores){
+    //palavra advinhada
+    string palavra;
+        //confere os jogadores
+        if (numeroDeJogadores == 1){
+            palavra = retornaPalavraAleatoria();
+            }else
+            {
+                cout << "\nDigite uma palavra\n";
+                cin >> palavra;
+            }
+ //tamanho da palavra
 int tamanhoDaPalavra = palavra.size();
    // retorno da palavra e o tamanho dela para a funcao etornaPalavraComMascara
      string palavraComMascara = retornaPalavraComMascara(palavra, tamanhoDaPalavra); 
@@ -72,11 +81,11 @@ for ( cont = 0; cont < tentativas; cont++){
         mensagem = "Essa letra ja foi digitada\n";    //se encontrar a letra  //se letra for repetida true
              jaDigitouLetra = true;  }}         
  if (jaDigitouLetra == false)  {
-             //se for uma letra nova
-     letrasJaArriscadas += letra; 
+             //incrementa letras arriscadas
+     letrasJaArriscadas += tolower(letra); 
 //percorre a palavra se acertar a letra
-    for (cont = 0; cont < tamanhoDaPalavra; cont++){
-        if (palavra[cont] == letra){
+    for (cont = 0; cont < tamanhoDaPalavra; cont++){ //se for uma letra nova
+        if (palavra[cont] == tolower(letra)){
           //faço a letra aparecer na palavra
            palavraComMascara[cont] = palavra[cont]; 
            mensagem = "voce acertou uma letra\n";
@@ -91,14 +100,14 @@ if (acertouletra == false) {
          }
 if(palavra == palavraComMascara){
             limpaTela();
-            cout << "Parabens, você venceu\n";
+            cout << "Parabens, voce venceu\n";
                 cout << "deseja reiniciar?";
                    cout << "\n1 sim - 2 nao\n"; 
                     cin >> opcao;
                         return opcao;  }
             else{
     limpaTela();
-             cout <<"Você perdeu!";
+             cout <<"Voce perdeu!";
                 cout << "deseja reiniciar?";
                    cout << "\n1 sim - 2 nao\n"; 
                     cin >> opcao;
@@ -112,25 +121,43 @@ int opcao = 0; //opcao do usuario
 while (opcao < 1 || opcao > 3){
 //opcoes                                      
 cout << "Bem vindo ao jogo";
-    cout << "\n1 - Jogar";
-        cout << "\n2 - Sobre";
-            cout << "\n3 - Sair";
-                cout << "\n Escolha uma opcao e tecle ENTER: ";
-cin >> opcao;
+    cout << "\n1 - Jogar sozinho";
+        cout << "\n2 - jogar em dupla";
+            cout << "\n2 - Sobre"; //informacoes do jogo
+                cout << "\n3 - Sair";
+                    cout << "\n Escolha uma opcao e tecle ENTER: ";
+    cin >> opcao;
 //sistema de escolhas (sub menu)
 switch(opcao){
 case 1:
             cout << "\t Jogo iniciado\n\n";
             limpaTela();
         
-        if (jogarSozinho() == 1)  {
+        if (jogar(1) == 1)  {
         limpaTela();
            menuInicial();}  
     break;
 case 2:
-            cout << "Informacoes do jogo\n"; 
+            cout << "\t Jogo iniciado\n\n";
+            limpaTela();
+        
+        if (jogar(2) == 1)  {
+        limpaTela();
+           menuInicial();}  
     break;
 case 3:
+            cout << "Informacoes do jogo\n"; 
+    limpaTela();
+            cout << "Jogo desenvolvido por Caio Ribeiro em 2019";
+                cout << "\n1 - Voltar";
+                cout << "\n2 - Sair \n";
+                cin >> opcao;
+                if (opcao == 1){
+                    limpaTela();
+                    menuInicial();
+                }
+    break;
+case 4:
             cout << "Ate mais\n";
     break;}}  }
 
