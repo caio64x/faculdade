@@ -157,9 +157,8 @@ case 3:
 case 4:
             limpaTela();
             cout << "Ate mais\n";
-
     break;}}  }
-
+    
 int main(){
 setlocale(LC_ALL,"Brasil");
 _tsetlocale(LC_ALL, _T("portuguese"));
