@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
 using namespace std;
 void limpaTela()                                                    //funcao para limpar informacoes 
 {
@@ -30,33 +29,31 @@ void exibeTabuleiro(char tabuleiro[10][10], char mascara[10][10])
     {
         for (coluna = 0; coluna < 10; coluna++)                     //imprime o tabuleiro
         {
-            //cout << " " << tabuleiro[linha][coluna];              //imprime o gabarito
+            //cout << " " << tabuleiro[linha][coluna];
             cout << " " <<  mascara[linha][coluna];                 //mascara
         }
         cout << "\n";
-    } 
+    }
 }
 void posicionaBarcos(char tabuleiro[10][10]){
     int quantidadePosicionada = 0;                                  //barcos posicionados contados 
-    int cont=0;                                                       //contador
+    int cont;                                                       //contador
     int quantidade = 10;                                            //limitador de barcos
-    int linhaBarco = NULL;
-    int colunaBarco = NULL;
 
     while (quantidadePosicionada < quantidade)
     {
-        linhaBarco = rand() %10;                                    //gera numero aleatório ate 9
-        colunaBarco = rand() %10;                                   //gera numero aleatório ate 9
+        int linhaBarco = rand() %10;                                //gera numero aleatório ate 9
+        int colunaBarco = rand() %10;                               //gera numero aleatório ate 9
+        tabuleiro[linhaBarco][colunaBarco] = 'B';
 
         if (tabuleiro[linhaBarco][colunaBarco] == 'A')              //se a posicao esta com agua entao entra um barco
         {
-        tabuleiro[linhaBarco][colunaBarco] = 'B';                   //entrada do barco na posicao
-        quantidadePosicionada++;                                    //incrementa a quantidade posicionada
+            tabuleiro[linhaBarco][colunaBarco] = 'B';               //entrada do barco na posicao
+            quantidadePosicionada++;                                //incrementa a quantidade posicionada
         }
 
     }
 }
-
 
 void jogo()
 {
@@ -64,21 +61,21 @@ void jogo()
     char tabuleiro[10][10];                                         //matriz do tabuleiro do jogo
     int linhaJogada, colunaJogada;                                  //posicao das jogadas
     int linha, coluna;
-    int estadoDeJogo = 1;                                           //mostra o estado do jogo 
+    bool estadoDeJogo = 1;                                          //mostra o estado do jogo 
 
     iniciaTabuleiro(tabuleiro, mascara);                            //inicia tabuleiro com agua
     posicionaBarcos(tabuleiro);
 
     while (estadoDeJogo == 1)
     {
-    limpaTela();    
+       // limpaTela();    
     exibeTabuleiro(tabuleiro, mascara);                             //exibe o tabuleiro
     cout << "\nDigite uma linha: ";
     cin >> linhaJogada;
     cout << "\nDigite uma coluna: ";
     cin >> colunaJogada;
     mascara[linhaJogada][colunaJogada] = tabuleiro[linhaJogada][colunaJogada];
-    limpaTela();
+  //  limpaTela();
     }
 }
 
@@ -115,7 +112,7 @@ void menuInicial()
 
 int main()
 {   
-    srand( (unsigned)time(NULL) );                                    //posicoes aleatorias
+    srand((unsigned)time(NULL));                                    //posicoes aleatorias
     setlocale(LC_ALL, "portuguese");
     menuInicial();
     
