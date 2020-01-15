@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include<string.h>
 #include <time.h>
-
 using namespace std;
 void limpaTela()                                                    //funcao para limpar informacoes 
 {
@@ -31,32 +31,40 @@ void exibeTabuleiro(char tabuleiro[10][10], char mascara[10][10])
         for (coluna = 0; coluna < 10; coluna++)                     //imprime o tabuleiro
         {
             //cout << " " << tabuleiro[linha][coluna];              //imprime o gabarito
-            cout << " " <<  mascara[linha][coluna];                 //mascara
+            cout << " " <<  mascara[linha][coluna];                 //imprime a mascara
         }
         cout << "\n";
     } 
 }
 void posicionaBarcos(char tabuleiro[10][10]){
     int quantidadePosicionada = 0;                                  //barcos posicionados contados 
-    int cont=0;                                                       //contador
+    int cont=0;                                                     //contador de pulos 
     int quantidade = 10;                                            //limitador de barcos
-    int linhaBarco = NULL;
-    int colunaBarco = NULL;
-
+    int linhaBarco = NULL, colunaBarco = NULL;                      //coordenadas dos barcos posicionados 
     while (quantidadePosicionada < quantidade)
     {
         linhaBarco = rand() %10;                                    //gera numero aleatório ate 9
         colunaBarco = rand() %10;                                   //gera numero aleatório ate 9
-
         if (tabuleiro[linhaBarco][colunaBarco] == 'A')              //se a posicao esta com agua entao entra um barco
         {
         tabuleiro[linhaBarco][colunaBarco] = 'B';                   //entrada do barco na posicao
         quantidadePosicionada++;                                    //incrementa a quantidade posicionada
         }
-
     }
 }
 
+void verificaTiro(char tabuleiro[10][10],int linhaJogada, int colunaJogada, int *pontos, string *mensagem){
+    switch (tabuleiro[linhaJogada][colunaJogada])
+        {
+        case 'B':
+            *pontos = *pontos +10;
+            *mensagem = "Você acertou um barco pequeno";
+            break;
+        case 'A':
+            *mensagem = "Você acertou a agua";
+            break;
+        } 
+}
 
 void jogo()
 {
@@ -65,18 +73,31 @@ void jogo()
     int linhaJogada, colunaJogada;                                  //posicao das jogadas
     int linha, coluna;
     int estadoDeJogo = 1;                                           //mostra o estado do jogo 
-
+    int pontos = 0;                                                 //pontuacao atual
+    string mensagem = "bem vindo ao jogo";                                                //mensagem enviada
     iniciaTabuleiro(tabuleiro, mascara);                            //inicia tabuleiro com agua
     posicionaBarcos(tabuleiro);
-
     while (estadoDeJogo == 1)
     {
     limpaTela();    
+
     exibeTabuleiro(tabuleiro, mascara);                             //exibe o tabuleiro
+    cout << "\nPontos " << pontos <<"\t" << mensagem;
     cout << "\nDigite uma linha: ";
     cin >> linhaJogada;
+        if(linhaJogada > 9){
+        cout << "\nDIGITE UM VALOR MENOR QUE 10";
+        cout << "\nDigite uma linha: ";
+        cin >> linhaJogada;
+    }
     cout << "\nDigite uma coluna: ";
     cin >> colunaJogada;
+        if(colunaJogada > 9){
+        cout << "DIGITE UM VALOR MENOR QUE 10";
+        cout << "\nDigite uma linha: ";
+        cin >> colunaJogada;
+    }
+    verificaTiro(tabuleiro, linhaJogada, colunaJogada, &pontos, &mensagem);
     mascara[linhaJogada][colunaJogada] = tabuleiro[linhaJogada][colunaJogada];
     limpaTela();
     }
@@ -86,17 +107,15 @@ void menuInicial()
 {
     int opcao = 0;                                                  //opcao escolhida no menu
     limpaTela();
-    while (opcao < 1 || opcao > 3)
+    while (opcao < 1 || opcao > 3)                                  //enquanto o jogador nao digita o menu continua em loop
     {
         limpaTela();
-                                                                    //enquanto o jogador nao digita o menu continua em loop
         cout << "Bem vindo ao Jogo";
         cout << "\n 1 - Jogar";
         cout << "\n 2 - Sobre";
         cout << "\n 3 - Sair";
         cout << "\n Escolha uma opção e tecle ENTER: ";
-        cin >> opcao;
-                                                                   
+        cin >> opcao;                              
         switch (opcao)                                              //case de leitura da opcao
         {
         case 1:
@@ -118,6 +137,4 @@ int main()
     srand( (unsigned)time(NULL) );                                    //posicoes aleatorias
     setlocale(LC_ALL, "portuguese");
     menuInicial();
-    
-
 } //fim do programa
