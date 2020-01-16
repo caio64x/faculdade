@@ -5,6 +5,8 @@
 #include<string.h>
 #include <time.h>
 using namespace std;
+//cabeçalhos de funcoes
+void menuInicial();                                                 
 void limpaTela()                                                    //funcao para limpar informacoes 
 {
     system("CLS");
@@ -77,6 +79,7 @@ void jogo()
     int linha, coluna;
     int estadoDeJogo = 1;                                           //mostra o estado do jogo 
     int pontos = 0;                                                 //pontuacao atual
+    int opcao;                                                       //opcoes no fim do jogo
    // int tentativas = 10;                                            //tentativas atuais
     int maximodeTentativas = 10;                                   //maximo de tentativas
     string mensagem = "bem vindo ao jogo";                          //mensagem enviada
@@ -103,8 +106,22 @@ void jogo()
         cin >> colunaJogada;
     }
     verificaTiro(tabuleiro, linhaJogada, colunaJogada, &pontos, &mensagem, &maximodeTentativas);
+    limpaTela();  
     mascara[linhaJogada][colunaJogada] = tabuleiro[linhaJogada][colunaJogada];
     limpaTela();    
+    }
+    cout << "\n\n fim de jogo,\n deseja \t 1- Jogar Novamente 2- Menu 3- Sair";
+            switch (opcao)
+            {
+            case 1:
+                jogo();
+                break;
+            case 2:
+                menuInicial();
+                break;
+            case 3:
+                 cout << "Até mais!\n";
+                break;
     }
 }
 
