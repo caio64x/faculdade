@@ -53,7 +53,8 @@ void posicionaBarcos(char tabuleiro[10][10]){
     }
 }
 
-void verificaTiro(char tabuleiro[10][10],int linhaJogada, int colunaJogada, int *pontos, string *mensagem){
+void verificaTiro(char tabuleiro[10][10],int linhaJogada, int colunaJogada, int *pontos, string *mensagem,int *maximodeTentativas){
+    int d = 1;
     switch (tabuleiro[linhaJogada][colunaJogada])
         {
         case 'B':
@@ -62,7 +63,9 @@ void verificaTiro(char tabuleiro[10][10],int linhaJogada, int colunaJogada, int 
             break;
         case 'A':
             *mensagem = "Você acertou a agua";
+            *maximodeTentativas = *maximodeTentativas -1;           
             break;
+            
         } 
 }
 
@@ -74,14 +77,16 @@ void jogo()
     int linha, coluna;
     int estadoDeJogo = 1;                                           //mostra o estado do jogo 
     int pontos = 0;                                                 //pontuacao atual
-    string mensagem = "bem vindo ao jogo";                                                //mensagem enviada
+   // int tentativas = 10;                                            //tentativas atuais
+    int maximodeTentativas = 10;                                   //maximo de tentativas
+    string mensagem = "bem vindo ao jogo";                          //mensagem enviada
     iniciaTabuleiro(tabuleiro, mascara);                            //inicia tabuleiro com agua
     posicionaBarcos(tabuleiro);
-    while (estadoDeJogo == 1)
+    while (maximodeTentativas != 0)
     {
     limpaTela();    
-
     exibeTabuleiro(tabuleiro, mascara);                             //exibe o tabuleiro
+    cout << maximodeTentativas << " Tentativas restantes";
     cout << "\nPontos " << pontos <<"\t" << mensagem;
     cout << "\nDigite uma linha: ";
     cin >> linhaJogada;
@@ -97,9 +102,9 @@ void jogo()
         cout << "\nDigite uma linha: ";
         cin >> colunaJogada;
     }
-    verificaTiro(tabuleiro, linhaJogada, colunaJogada, &pontos, &mensagem);
+    verificaTiro(tabuleiro, linhaJogada, colunaJogada, &pontos, &mensagem, &maximodeTentativas);
     mascara[linhaJogada][colunaJogada] = tabuleiro[linhaJogada][colunaJogada];
-    limpaTela();
+    limpaTela();    
     }
 }
 
