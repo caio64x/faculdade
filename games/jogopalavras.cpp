@@ -10,6 +10,7 @@
 #define qt 30
 using namespace std;
 
+
 //funçao limpa tela
 void limpaTela(){ 
     system("CLS");   }
