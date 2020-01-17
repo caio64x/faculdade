@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 struct DADOS                    //estrutura dos dados
 {
     int id;                     //identificacao do dado
