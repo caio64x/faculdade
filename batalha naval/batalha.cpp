@@ -5,6 +5,7 @@
 #include<string.h>
 #include <time.h>
 using namespace std;
+
 //cabeçalhos de funcoes
 void menuInicial();                                                 
 void limpaTela()                                                    //funcao para limpar informacoes 
