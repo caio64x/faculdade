@@ -38,6 +38,7 @@ void exibeTabuleiro(char tabuleiro[10][10], char mascara[10][10])
         cout << "\n";
     } 
 }
+
 void posicionaBarcos(char tabuleiro[10][10]){
     int quantidadePosicionada = 0;                                  //barcos posicionados contados 
     int cont=0;                                                     //contador de pulos 
@@ -66,12 +67,11 @@ void verificaTiro(char tabuleiro[10][10],int linhaJogada, int colunaJogada, int 
         case 'A':
             *mensagem = "Você acertou a agua";
             *maximodeTentativas = *maximodeTentativas -1;           
-            break;
-            
+            break; 
         } 
 }
 
-void jogo()
+void jogo(string *nomeJogador)
 {
     char mascara[10][10];                                           //matriz da mascara
     char tabuleiro[10][10];                                         //matriz do tabuleiro do jogo
@@ -79,9 +79,9 @@ void jogo()
     int linha, coluna;
     int estadoDeJogo = 1;                                           //mostra o estado do jogo 
     int pontos = 0;                                                 //pontuacao atual
-    int opcao;                                                       //opcoes no fim do jogo
-   // int tentativas = 10;                                            //tentativas atuais
-    int maximodeTentativas = 10;                                   //maximo de tentativas
+    int opcao;                                                      //opcoes no fim do jogo
+   // int tentativas = 10;                                          //tentativas atuais
+    int maximodeTentativas = 10;                                    //maximo de tentativas
     string mensagem = "bem vindo ao jogo";                          //mensagem enviada
     iniciaTabuleiro(tabuleiro, mascara);                            //inicia tabuleiro com agua
     posicionaBarcos(tabuleiro);
@@ -90,18 +90,18 @@ void jogo()
     limpaTela();    
     exibeTabuleiro(tabuleiro, mascara);                             //exibe o tabuleiro
     cout << maximodeTentativas << " Tentativas restantes";
-    cout << "\nPontos " << pontos <<"\t" << mensagem;
+    cout <<"Jogador: " << *nomeJogador << "\nPontos " << pontos <<"\t" << mensagem;
     cout << "\nDigite uma linha: ";
     cin >> linhaJogada;
         if(linhaJogada > 9){
-        cout << "\nDIGITE UM VALOR MENOR QUE 10";
+        cout << "\nDIGITE UM VALOR MENOR QUE 10";                  //correcao de valor maior que 9 
         cout << "\nDigite uma linha: ";
         cin >> linhaJogada;
     }
     cout << "\nDigite uma coluna: ";
     cin >> colunaJogada;
         if(colunaJogada > 9){
-        cout << "DIGITE UM VALOR MENOR QUE 10";
+        cout << "DIGITE UM VALOR MENOR QUE 10";                    //correcao de valor maior que 9 
         cout << "\nDigite uma linha: ";
         cin >> colunaJogada;
     }
@@ -109,12 +109,12 @@ void jogo()
     limpaTela();  
     mascara[linhaJogada][colunaJogada] = tabuleiro[linhaJogada][colunaJogada];
     limpaTela();    
-    }
+    }                                                              //case de fim de jogo
     cout << "\n\n fim de jogo,\n deseja \t 1- Jogar Novamente 2- Menu 3- Sair";
             switch (opcao)
             {
             case 1:
-                jogo();
+                jogo(nomeJogador);
                 break;
             case 2:
                 menuInicial();
@@ -128,6 +128,7 @@ void jogo()
 void menuInicial()
 {
     int opcao = 0;                                                  //opcao escolhida no menu
+    string nomeJogador = NULL;                                      //string do nome do jogador
     limpaTela();
     while (opcao < 1 || opcao > 3)                                  //enquanto o jogador nao digita o menu continua em loop
     {
@@ -141,8 +142,10 @@ void menuInicial()
         switch (opcao)                                              //case de leitura da opcao
         {
         case 1:
+            cout << "Digite seu nome: \n";
+            cin >> nomeJogador;
             cout << "Jogo iniciado\n";
-            jogo();
+            jogo(&nomeJogador);
             break;
         case 2:
             cout << "Informações do jogo\n";
